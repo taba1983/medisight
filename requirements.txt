@@ -73,7 +73,7 @@ pyobjc-framework-Cocoa==10.0
 pyobjc-framework-Security==10.0
 pyobjc-framework-WebKit==10.0
 pyparsing==3.0.9
-python-dateutil==2.8.2
+python-dateutil==3.10.13
 python-igraph==0.11.3
 python-utils==3.10.13
 pytz==2023.3
