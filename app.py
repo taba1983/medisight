@@ -115,6 +115,7 @@ headers = html.Div(
         "height": "56px",
         "z-index": "2",
         "border-bottom": "solid 0.5px #AEAAAA",
+        "background-color": "#ffffff"
     }
 )
 
@@ -634,6 +635,7 @@ def view_one_variable_graph(n_clicks, qualitative_variable, contents):
                 data_table = dash_table.DataTable(
                     data = table_data.to_dict('records'),
                     columns = [{'name': i, 'id': i} for i in table_data.columns],
+                    page_size = 10,
                     style_cell = {
                         "text-align": "center",
                         "max-width": "80px",
@@ -845,152 +847,154 @@ def view_two_variable_graph(n_clicks, contents, axis_variable, axis_type):
 
         if axis_type == "xaxis":
             for col in df.columns:
-                df_sorted = df.sort_values(
-                    by = axis_variable,
-                    ascending = True
-                )
-
-                scat_fig = px.scatter(
-                    df_sorted,
-                    x = axis_variable,
-                    y = col
-                )
-
-                scat_fig.update_layout(
-                    paper_bgcolor = '#ffffff',
-                    plot_bgcolor = '#ffffff'
-                )
-
-                # X軸とY軸の線を設定
-                scat_fig.update_xaxes(
-                    showline = True,
-                    linewidth = 0.5,
-                   linecolor = '#AEAAAA'
-                )
-                scat_fig.update_yaxes(
-                    showline = True,
-                    linewidth = 0.5,
-                   linecolor = '#AEAAAA'
-                )
-
-                # 散布図のマーカーの色を設定
-                scat_fig.update_traces(
-                    marker = dict(
-                        color = "#2b4b78",
-                        size = 4
-                    ) # ここで色とサイズを設定
-                )
-
-                scatters.append(
-                    html.Div(
-                        [
-                            html.Div(
-                                html.H3(
-                                    "{}（X軸）と{}（Y軸）の分布".format(axis_variable, col),
-                                    style = {
-                                        "font-size": "12pt",
-                                        "margin": "16px 0px 0px 40px"
-                                    }
-                                )
-                            ),
-                            html.Div(
-                                [
-                                    html.Div(
-                                        dcc.Graph(
-                                            figure = scat_fig
-                                        ),
-                                        style = {
-                                            "width": "96%",
-                                            "margin": "8px"
-                                        }
-                                    ),
-                                ]
-                            ) 
-                        ],
-                        style = {
-                            "border-radius": "2px",
-                            "border": "solid 0.5px #AEAAAA",
-                            "margin": "0px 2px 16px 0px",
-                            "width": "1200px",
-                            "height": "520px"
-                        }
+                if col != axis_variable:
+                    df_sorted = df.sort_values(
+                        by = axis_variable,
+                        ascending = True
                     )
-                )
+
+                    scat_fig = px.scatter(
+                        df_sorted,
+                        x = axis_variable,
+                        y = col
+                    )
+
+                    scat_fig.update_layout(
+                        paper_bgcolor = '#ffffff',
+                        plot_bgcolor = '#ffffff'
+                    )
+
+                    # X軸とY軸の線を設定
+                    scat_fig.update_xaxes(
+                        showline = True,
+                        linewidth = 0.5,
+                    linecolor = '#AEAAAA'
+                    )
+                    scat_fig.update_yaxes(
+                        showline = True,
+                        linewidth = 0.5,
+                    linecolor = '#AEAAAA'
+                    )
+
+                    # 散布図のマーカーの色を設定
+                    scat_fig.update_traces(
+                        marker = dict(
+                            color = "#2b4b78",
+                            size = 4
+                        ) # ここで色とサイズを設定
+                    )
+
+                    scatters.append(
+                        html.Div(
+                            [
+                                html.Div(
+                                    html.H3(
+                                        "{}（X軸）と{}（Y軸）の分布".format(axis_variable, col),
+                                        style = {
+                                            "font-size": "12pt",
+                                            "margin": "16px 0px 0px 40px"
+                                        }
+                                    )
+                                ),
+                                html.Div(
+                                    [
+                                        html.Div(
+                                            dcc.Graph(
+                                                figure = scat_fig
+                                            ),
+                                            style = {
+                                                "width": "96%",
+                                                "margin": "8px"
+                                            }
+                                        ),
+                                    ]
+                                ) 
+                            ],
+                            style = {
+                                "border-radius": "2px",
+                                "border": "solid 0.5px #AEAAAA",
+                                "margin": "0px 2px 16px 0px",
+                                "width": "1200px",
+                                "height": "520px"
+                            }
+                        )
+                    )
         
         elif axis_type == "yaxis":
             for col in df.columns:
-                df_sorted = df.sort_values(
-                    by = col,
-                    ascending = True
-                )
-                
-                scat_fig = px.scatter(
-                    df_sorted,
-                    x = col,
-                    y = axis_variable
-                )
-
-                # グラフの背景色と線の色を設定
-                scat_fig.update_layout(
-                    paper_bgcolor = '#ffffff',
-                    plot_bgcolor = '#ffffff'
-                )
-
-                # X軸とY軸の線を設定
-                scat_fig.update_xaxes(
-                    showline = True,
-                    linewidth = 0.5,
-                   linecolor = '#AEAAAA'
-                )
-                scat_fig.update_yaxes(
-                    showline = True,
-                    linewidth = 0.5,
-                   linecolor = '#AEAAAA'
-                )
-
-                # 散布図のマーカーの色を設定
-                scat_fig.update_traces(
-                    marker = dict(
-                        color = "#2b4b78",
-                        size = 4
-                    ) # ここで色とサイズを設定
-                )
-
-                scatters.append(
-                    html.Div(
-                        [
-                            html.Div(
-                                html.H3(
-                                    "{}（X軸）と{}（Y軸）の分布".format(col, axis_variable),
-                                    style = {
-                                        "font-size": "12pt",
-                                        "margin": "16px 0px 0px 40px"
-                                    }
-                                )
-                            ),
-                            html.Div(
-                                [
-                                    html.Div(
-                                        dcc.Graph(
-                                            figure = scat_fig
-                                        ),
-                                        style = {
-                                            "width": "96%",
-                                            "margin": "8px"
-                                        }
-                                    ),
-                                ]
-                            ) 
-                        ],
-                        style = {
-                            "border-radius": "2px",
-                            "border": "solid 0.5px #AEAAAA",
-                            "margin": "0px 2px 16px 0px",
-                            "width": "1200px",
-                            "height": "520px"
-                        }
+                if col != axis_variable:
+                    df_sorted = df.sort_values(
+                        by = col,
+                        ascending = True
                     )
-                )
+                    
+                    scat_fig = px.scatter(
+                        df_sorted,
+                        x = col,
+                        y = axis_variable
+                    )
+
+                    # グラフの背景色と線の色を設定
+                    scat_fig.update_layout(
+                        paper_bgcolor = '#ffffff',
+                        plot_bgcolor = '#ffffff'
+                    )
+
+                    # X軸とY軸の線を設定
+                    scat_fig.update_xaxes(
+                        showline = True,
+                        linewidth = 0.5,
+                    linecolor = '#AEAAAA'
+                    )
+                    scat_fig.update_yaxes(
+                        showline = True,
+                        linewidth = 0.5,
+                    linecolor = '#AEAAAA'
+                    )
+
+                    # 散布図のマーカーの色を設定
+                    scat_fig.update_traces(
+                        marker = dict(
+                            color = "#2b4b78",
+                            size = 4
+                        ) # ここで色とサイズを設定
+                    )
+
+                    scatters.append(
+                        html.Div(
+                            [
+                                html.Div(
+                                    html.H3(
+                                        "{}（X軸）と{}（Y軸）の分布".format(col, axis_variable),
+                                        style = {
+                                            "font-size": "12pt",
+                                            "margin": "16px 0px 0px 40px"
+                                        }
+                                    )
+                                ),
+                                html.Div(
+                                    [
+                                        html.Div(
+                                            dcc.Graph(
+                                                figure = scat_fig
+                                            ),
+                                            style = {
+                                                "width": "96%",
+                                                "margin": "8px"
+                                            }
+                                        ),
+                                    ]
+                                ) 
+                            ],
+                            style = {
+                                "border-radius": "2px",
+                                "border": "solid 0.5px #AEAAAA",
+                                "margin": "0px 2px 16px 0px",
+                                "width": "1200px",
+                                "height": "520px"
+                            }
+                        )
+                    )
 
         scatters_layout = html.Div(
             scatters,
@@ -1021,69 +1025,70 @@ def view_longitudinal_graph(n_clicks, longitudinal_variable, contents):
         line_scatters = []
 
         for col in df_sorted.columns:
-            line_scatter = px.line(
-                df_sorted,
-                x = longitudinal_variable,
-                y = col,
-            )
-
-            # グラフの背景色と線の色を設定
-            line_scatter.update_layout(
-                paper_bgcolor = '#ffffff',
-                plot_bgcolor = '#ffffff'
-            )
-
-            # X軸とY軸の線を設定
-            line_scatter.update_xaxes(
-                showline = True,
-                linewidth = 0.5,
-               linecolor = '#AEAAAA'
-            )
-            line_scatter.update_yaxes(
-                showline = True,
-                linewidth = 0.5,
-               linecolor = '#AEAAAA'
-            )
-
-            line_scatter.update_traces(
-                line = dict(color = "#2b4b78")
-            )
-
-            line_scatters.append(
-                html.Div(
-                    [
-                        html.Div(
-                            html.H3(
-                                "{}の時系列データ".format(col),
-                                style = {
-                                    "font-size": "12pt",
-                                    "margin": "16px 0px 0px 40px"
-                                }
-                            )
-                        ),
-                        html.Div(
-                            [
-                                html.Div(
-                                    dcc.Graph(
-                                        figure = line_scatter
-                                    ),
-                                    style = {
-                                        "width": "96%",
-                                        "margin": "8px"
-                                    }
-                                ),
-                            ]
-                        ) 
-                    ],
-                    style = {
-                        "border-radius": "2px",
-                        "border": "solid 0.5px #AEAAAA",
-                        "margin": "0px 2px 16px 0px",
-                        "width": "1200px",
-                        "height": "520px"
-                    }
+            if col != longitudinal_variable:
+                line_scatter = px.line(
+                    df_sorted,
+                    x = longitudinal_variable,
+                    y = col,
                 )
-            )
+
+                # グラフの背景色と線の色を設定
+                line_scatter.update_layout(
+                    paper_bgcolor = '#ffffff',
+                    plot_bgcolor = '#ffffff'
+                )
+
+                # X軸とY軸の線を設定
+                line_scatter.update_xaxes(
+                    showline = True,
+                    linewidth = 0.5,
+                linecolor = '#AEAAAA'
+                )
+                line_scatter.update_yaxes(
+                    showline = True,
+                    linewidth = 0.5,
+                linecolor = '#AEAAAA'
+                )
+
+                line_scatter.update_traces(
+                    line = dict(color = "#2b4b78")
+                )
+
+                line_scatters.append(
+                    html.Div(
+                        [
+                            html.Div(
+                                html.H3(
+                                    "{}の時系列データ".format(col),
+                                    style = {
+                                        "font-size": "12pt",
+                                        "margin": "16px 0px 0px 40px"
+                                    }
+                                )
+                            ),
+                            html.Div(
+                                [
+                                    html.Div(
+                                        dcc.Graph(
+                                            figure = line_scatter
+                                        ),
+                                        style = {
+                                            "width": "96%",
+                                            "margin": "8px"
+                                        }
+                                    ),
+                                ]
+                            ) 
+                        ],
+                        style = {
+                            "border-radius": "2px",
+                            "border": "solid 0.5px #AEAAAA",
+                            "margin": "0px 2px 16px 0px",
+                            "width": "1200px",
+                            "height": "520px"
+                        }
+                    )
+                )
         
         line_scatters_layout = html.Div(
             line_scatters,
@@ -1094,4 +1099,4 @@ def view_longitudinal_graph(n_clicks, longitudinal_variable, contents):
 
 # app start
 if __name__ == "__main__":
-    app.run_server(debug = True)
+    app.run_server(debug=False)
