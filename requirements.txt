@@ -75,7 +75,7 @@ pyobjc-framework-WebKit==10.0
 pyparsing==3.0.9
 python-dateutil==2.8.2
 python-igraph==0.11.3
-python-utils==3.8.1
+python-utils==3.10.13
 pytz==2023.3
 pywebview==4.4
 PyYAML==6.0.1
