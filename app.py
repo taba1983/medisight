@@ -147,7 +147,7 @@ tabs = html.Div(
                     selected_style = selected_tab_style,
                 ),
                 dcc.Tab(
-                    label = '時系列データ',
+                    label = '時系列データの分布',
                     value = 'longitudinal-graph-tab',
                     style = tab_style,
                     selected_style = selected_tab_style,
@@ -510,7 +510,7 @@ def data_table_view(contents, filename):
         longitudinal_graph_info = html.Div(
             [
                 html.H2(
-                    "時系列データ",
+                    "時系列データの分布",
                     style = {
                         "font-size": "16pt",
                         "margin-bottom": "16px"
