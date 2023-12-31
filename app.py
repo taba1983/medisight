@@ -71,9 +71,9 @@ headers = html.Div(
             'MediSight',
             style = {
                 "font-weight": "bold",
-                "margin-top": "10px",
-                "margin-left": "16px",
-                "font-size": "20pt",
+                "margin-top": "6px",
+                "margin-left": "24px",
+                "font-size": "24pt",
                 "display": "inline-block"
             }
         ),
@@ -95,7 +95,7 @@ headers = html.Div(
                     ),
             style = {
                 "margin-top": "12px",
-                "margin-left": "88px",
+                "margin-left": "48px",
                 "display": "inline-block"
             }
         ),
