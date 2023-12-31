@@ -135,13 +135,13 @@ tabs = html.Div(
                     selected_style = selected_tab_style
                 ),
                 dcc.Tab(
-                    label = '1変数の分布',
+                    label = '各変数の情報',
                     value = 'one-variable-graph-tab',
                     style = tab_style,
                     selected_style = selected_tab_style,
                 ),
                 dcc.Tab(
-                    label = '2変数の分布',
+                    label = '2変数の関係性',
                     value = 'two-variable-graph-tab',
                     style = tab_style,
                     selected_style = selected_tab_style,
@@ -349,7 +349,7 @@ def data_table_view(contents, filename):
         one_variable_graph_info = html.Div(
             [
                 html.H2(
-                    "1変数の分布",
+                    "各変数の情報",
                     style = {
                         "font-size": "16pt",
                         "margin-bottom": "16px"
@@ -379,7 +379,7 @@ def data_table_view(contents, filename):
                             }
                         ),
                         html.Button(
-                            '1変数の分布を表示',
+                            '各変数の情報を表示',
                             id = 'one-variable-graph-view',
                             n_clicks = 0,
                             style = {
@@ -414,7 +414,7 @@ def data_table_view(contents, filename):
         two_variable_graph_info = html.Div(
             [
                 html.H2(
-                    "2変数の分布",
+                    "2変数の関係性",
                     style = {
                         "font-size": "16pt",
                         "margin-bottom": "16px",
@@ -475,7 +475,7 @@ def data_table_view(contents, filename):
                             }
                         ),
                         html.Button(
-                            '2変数の分布を表示',
+                            '2変数の関係性を表示',
                             id = 'two-variable-graph-view',
                             n_clicks = 0,
                             style = {
