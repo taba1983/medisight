@@ -202,6 +202,9 @@ contents = html.Div(
     ],
 )
 
+# app title
+app.title = "MediSight"
+
 # app layout
 app.layout = html.Div(
     id = "body-container",
